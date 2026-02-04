@@ -2,31 +2,19 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
+  private users = [
+    { id: 1, name: 'Sarim', email: 'sarim@gmail.com', phone: 123456789 },
+    { id: 2, name: 'John', email: 'john@gmail.com', phone: 987654321 },
+  ];
 
   findAll() {
-    return [
-      {
-        id: 1,
-        name: 'Sarim',
-        email: 'sarim@gmail.com',
-        phone: 123456789,
-      },
-      {
-        id: 2,
-        name: 'John',
-        email: 'john@gmail.com',
-        phone: 987654321,
-      },
-    ];
+    return this.users;
   }
 
   findUserById(id: number) {
-    return {
-      id,
-      name: 'Sarim',
-      email: 'sarim@gmail.com',
-      phone: 123456789,
-    };
-  }
+    const user = this.users.find((u) => u.id === id);
+    if (!user) return 'User not found';
 
+    return user;
+  }
 }
