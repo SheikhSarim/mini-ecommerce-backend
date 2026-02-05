@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { PatchUserDto } from './dtos/patch-user.dto';
 import { UsersService } from './providers/users.service';
@@ -38,8 +31,8 @@ export class UsersController {
     return 'Create User';
   }
 
-  @Patch()
-  patchUser(@Body() patchUserDto: PatchUserDto): string {
+  @Patch('/:id')
+  patchUser(@Param('id') @Body() patchUserDto: PatchUserDto): string {
     console.log(patchUserDto);
     return 'Patch User';
   }
