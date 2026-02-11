@@ -1,12 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Header } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 
 @Controller()
+@ApiTags('App health')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('health')
+  healthChecker(): { status: string } {
+    return this.appService.healthChecker();
+  }
+
+  @Get('terms')
+  @ApiExcludeEndpoint()
+  @Header('Content-Type', 'text/plain')
+  getTerms(): string {
+    return this.appService.getTermsOfService();
   }
 }
